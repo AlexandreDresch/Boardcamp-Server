@@ -16,8 +16,8 @@ export async function postGame(req, res) {
 
   try {
     db.query(
-      'INSERT INTO games (name, image, "stockTotal", "pricePerDay") VALUES ($1, $2, $3, $4)',
-      [name, image, stockTotal, pricePerDay]
+      'INSERT INTO games (name, "stockTotal", "pricePerDay", image) VALUES ($1, $2, $3, $4)',
+      [name, stockTotal, pricePerDay, image,]
     );
 
     return res.sendStatus(201);
