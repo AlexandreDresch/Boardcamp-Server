@@ -30,7 +30,7 @@ export function rentalValidation(schema) {
       }
 
       const verifyStock = await db.query(
-        'SELECT * FROM rentals WHERE "gameId"=$1',
+        'SELECT * FROM rentals WHERE "gameId"=$1 AND "returnDate" IS NULL',
         [data.gameId]
       );
 
