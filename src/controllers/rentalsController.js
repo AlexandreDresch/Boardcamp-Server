@@ -59,7 +59,7 @@ export async function finishRental(req, res) {
     const daysDifference = dayjs(rentalData.returnDate).diff(rentalData.rentDate, "days");
 
     if (daysDifference - rentalData.daysRented > 0) {
-      rentalData.delayFee = daysDifference * rentalData.originalPrice;
+      rentalData.delayFee = daysDifference * (rentalData.originalPrice / rentalData.daysRented);
     } else {
       rentalData.delayFee = 0;
     }
