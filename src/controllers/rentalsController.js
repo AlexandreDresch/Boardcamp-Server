@@ -50,20 +50,20 @@ export async function postRental(req, res) {
 export async function finishRental(req, res) {
   const { rentalData } = res.locals;
   try {
-    if (rentalData.returnDate !== null) {
-      res.sendStatus(400); 
+    if (rentalData.returnDate !== null) { 
+      return res.sendStatus(400); 
     }
 
     rentalData.returnDate = dayjs().format("YYYY-MM-DD"); 
 
-    const daysDifference = Math.floor(new Date(rentalData.returnDate) - new Date(rentalData.rentDate)) / (1000 * 3600 * 24);
+    const daysDifference = Math.trunc((new Date() - new Date(rentalData.rentDate)) / (1000 * 60 * 60 * 24));
 
-    //console.log(daysDifference);
+    console.log(daysDifference); 
 
     if(daysDifference > 0) {
         rentalData.delayFee = daysDifference * rentalData.pricePerDay;
     } else {
-        rentalData.delayFee = 0;
+        rentalData.delayFee = 0; 
     }
 
     await db.query(
@@ -73,10 +73,11 @@ export async function finishRental(req, res) {
 
     res.sendStatus(200);  
   } catch (error) {
+    console.log("entrou aqui");
     console.error(error);
     res.sendStatus(500); 
   }
-}
+} 
 
 export async function deleteRental(req, res) {
   const { id } = req.params;
@@ -102,4 +103,4 @@ export async function deleteRental(req, res) {
     console.error(error);
     return res.sendStatus(500);
   }
-}
+} 
