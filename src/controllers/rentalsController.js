@@ -57,7 +57,7 @@ export async function finishRental(req, res) {
     rentalData.returnDate = dayjs().format("YYYY-MM-DD");
 
     const daysDifference = Math.trunc(
-      (new Date(rentalData.returnDate).getTime() - new Date(rentalData.rentDate).getTime()) /
+      (new Date().getTime() - new Date(rentalData.rentDate).getTime()) /
         (1000 * 60 * 60 * 24)
     );
 
