@@ -5,11 +5,11 @@ import {
   getCustomers,
   postCustomer,
   updateCustomer,
-} from "../controller/customersController.js";
+} from "../controllers/customersController.js";
 
-import { customerValidation } from "../middleware/customerValidation.js";
+import { customerValidation } from "../middlewares/customerValidation.js";
 
-import { customerSchema } from "../schema/customerSchema.js";
+import { customerSchema } from "../schemas/customerSchema.js";
 
 const customersRouter = Router();
 

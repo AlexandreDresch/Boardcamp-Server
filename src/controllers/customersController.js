@@ -43,7 +43,7 @@ export async function postCustomer(req, res) {
       return res.sendStatus(409);
     }
 
-    db.query(
+    await db.query(
       "INSERT INTO customers (name, phone, cpf, birthday) VALUES ($1, $2, $3, $4)",
       [name, phone, cpf, birthday]
     );

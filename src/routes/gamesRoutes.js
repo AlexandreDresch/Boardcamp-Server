@@ -1,10 +1,10 @@
 import { Router } from "express";
 
-import { getGames, postGame } from "../controller/gamesController.js";
+import { getGames, postGame } from "../controllers/gamesController.js";
 
-import { gameValidation } from "../middleware/gameValidation.js";
+import { gameValidation } from "../middlewares/gameValidation.js";
 
-import { gameSchema } from "../schema/gameSchema.js";
+import { gameSchema } from "../schemas/gameSchema.js";
 
 const gamesRouter = Router();
 
