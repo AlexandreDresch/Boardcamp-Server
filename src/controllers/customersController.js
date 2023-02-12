@@ -73,7 +73,7 @@ export async function updateCustomer(req, res) {
       [name, phone, cpf, birthday, id]
     );
 
-    return res.sendStatus(201);
+    return res.sendStatus(200);
   } catch (error) {
     console.error(error);
     return res.sendStatus(500);
