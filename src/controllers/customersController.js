@@ -48,7 +48,7 @@ export async function postCustomer(req, res) {
       [name, phone, cpf, birthday]
     );
 
-    return res.sendStatus(200);
+    return res.sendStatus(201); 
   } catch (error) {
     console.error(error);
     return res.sendStatus(500);

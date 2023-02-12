@@ -51,7 +51,7 @@ export async function finishRental(req, res) {
   const { rentalData } = res.locals;
   try {
     if (rentalData.returnDate !== null) {
-      res.sendStatus(400);
+      res.sendStatus(400); 
     }
 
     rentalData.returnDate = dayjs().format("YYYY-MM-DD"); 
