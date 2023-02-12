@@ -12,28 +12,34 @@ export function rentalValidation(schema) {
       data.rentDate = dayjs().format("YYYY-MM-DD");
 
       const verifyIfCustomerExists = await db.query(
-        "SELECT * FROM customers WHERE id=$1", 
-        [data.customerId] 
+        "SELECT * FROM customers WHERE id=$1",
+        [data.customerId]
       );
 
-      if (!verifyIfCustomerExists.rows.length) { 
+      if (!verifyIfCustomerExists.rows.length) {
         return res.sendStatus(400);
       }
 
-      const verifyIfGameAndStockExists = await db.query(
+      const verifyIfGameExists = await db.query(
         'SELECT "stockTotal", "pricePerDay" FROM games WHERE id=$1',
         [data.gameId]
       );
 
-      if ( 
-        !verifyIfGameAndStockExists.rows.length ||
-        verifyIfGameAndStockExists.rows[0].stockTotal === 0
-      ) {
+      if (!verifyIfGameExists.rows.length) {
+        return res.sendStatus(400); 
+      }
+
+      const verifyStock = await db.query(
+        'SELECT * FROM rentals WHERE "gameId"=$1',
+        [data.gameId]
+      );
+
+      if (verifyStock.rows.length >= verifyIfGameExists.rows[0].stockTotal) {
         return res.sendStatus(400);
       }
 
       data.originalPrice =
-        data.daysRented * verifyIfGameAndStockExists.rows[0].pricePerDay;
+        data.daysRented * verifyIfGameExists.rows[0].pricePerDay;
 
       res.locals.rentalData = data;
       next();
